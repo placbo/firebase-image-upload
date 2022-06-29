@@ -1,7 +1,9 @@
 import { initializeApp } from 'firebase/app';
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from 'firebase/auth';
 import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage } from 'firebase/storage';
+
+export const PERSONS_COLLECTION_NAME = 'persons';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBlc-9cBQVLLXdLxYfVpgh8I3iFALoQ7E0',
@@ -17,9 +19,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage();
-
-
-
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -46,4 +45,14 @@ const logout = () => {
   signOut(auth);
 };
 
-export { auth, db, signInWithGoogle, logout , storage};
+interface Person {
+  name: string;
+}
+
+const addPerson = async (person: Person) => {
+  await addDoc(collection(db, PERSONS_COLLECTION_NAME), {
+    name: person.name,
+  });
+};
+
+export { auth, db, addPerson, signInWithGoogle, logout, storage };
