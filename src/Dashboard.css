@@ -11,8 +11,11 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  background-color: #dcdcdc;
+  border: 1px solid #dcdcdc;
+  border-radius: 1rem;
   padding: 30px;
+  width: 20rem;
+  margin: 2rem 0;
 }
 
 .dashboard__btn {
@@ -22,8 +25,9 @@
   border: none;
   color: white;
   background-color: black;
+  cursor: crosshair;
 }
 
 .dashboard div {
-  margin-top: 7px;
+  margin-top: 0.5rem;
 }

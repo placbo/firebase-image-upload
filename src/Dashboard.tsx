@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
-import { addPerson, auth, db, logout, storage } from './firebase';
+import { addPerson, auth, db, get3PersonsSorted, logout, storage } from './firebase';
 import { query, collection, getDocs, where } from 'firebase/firestore';
 import { ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
@@ -26,7 +26,7 @@ function Dashboard() {
   };
 
   const savePerson = () => {
-    addPerson({ name: personName });
+    addPerson({ firstName: personName });
   };
 
   useEffect(() => {
@@ -45,11 +45,13 @@ function Dashboard() {
     if (loading) return;
     if (!user) return navigate('/');
     fetchUserName().then();
+    get3PersonsSorted().then();
   }, [user, loading, navigate]);
 
   return (
     <div className="dashboard">
       <div className="dashboard__container">
+        <h2>User profile</h2>
         {user && (
           <>
             Logged in as
@@ -66,7 +68,8 @@ function Dashboard() {
         </button>
       </div>
 
-      <div>
+      <div className="dashboard__container">
+        <h2>Add person</h2>
         <input
           type="file"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,13 +78,20 @@ function Dashboard() {
           id="myFile"
           name="filename"
         />
-        <button onClick={handleSubmit} disabled={!imageToUpload}>
+        <button className="dashboard__btn" onClick={handleSubmit} disabled={!imageToUpload}>
           Last opp
         </button>
       </div>
-      <div>
+
+      <div className="dashboard__container">
+        <h2>Last 10 persons</h2>
+      </div>
+
+      <div className="dashboard__container">
+        <h2>Add person</h2>
+        <label>Fornavn</label>
         <input type="text" onChange={(event) => setPersonName(event.target.value)} />
-        <button onClick={savePerson} disabled={!personName}>
+        <button className="dashboard__btn" onClick={savePerson} disabled={!personName}>
           Lagre Person
         </button>
       </div>
