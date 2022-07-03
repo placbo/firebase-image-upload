@@ -8,6 +8,8 @@ module.exports = {
   rules: {
     'no-console': 0, //TODO: 1
     'no-debugger': 1,
+    'no-unused-vars': 0,
+    '@typescript-eslint/no-unused-vars': 1,
     'prettier/prettier': 2,
   },
 };

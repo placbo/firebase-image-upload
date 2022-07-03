@@ -1,19 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from 'firebase/auth';
-import {
-  getFirestore,
-  query,
-  getDocs,
-  collection,
-  where,
-  addDoc,
-  doc,
-  getDoc,
-  orderBy,
-  limit,
-} from 'firebase/firestore';
+import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
-import { Person } from 'types';
 
 export const PERSONS_COLLECTION_NAME = 'persons';
 
@@ -28,13 +16,13 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const storage = getStorage();
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const storage = getStorage();
 
 const googleProvider = new GoogleAuthProvider();
 
-const signInWithGoogle = async () => {
+export const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, googleProvider);
     const user = res.user;
@@ -53,43 +41,26 @@ const signInWithGoogle = async () => {
   }
 };
 
-const logout = () => {
+export const logout = () => {
   signOut(auth);
 };
 
-const personsRef = collection(db, PERSONS_COLLECTION_NAME);
+export const personsRef = collection(db, PERSONS_COLLECTION_NAME);
 
-const addPerson = async (person: Person) => {
-  await addDoc(personsRef, {
-    name: person.firstName,
-  });
-};
+// const getPerson = async (id: string = '0ttbjQBY2GOnc4QFg4ey') => {
+//   const personRef = doc(db, PERSONS_COLLECTION_NAME, id);
+//   const personSnap = await getDoc(personRef);
+//   if (personSnap.exists()) {
+//     console.log('Data:', personSnap.data().name);
+//   } else {
+//     console.log('No such person!');
+//   }
+// };
 
-const getPerson = async (id: string = '0ttbjQBY2GOnc4QFg4ey') => {
-  const personRef = doc(db, PERSONS_COLLECTION_NAME, id);
-  const personSnap = await getDoc(personRef);
-  if (personSnap.exists()) {
-    console.log('Data:', personSnap.data().name);
-  } else {
-    console.log('No such person!');
-  }
-};
-
-/*const getAllPersons = async () => {
-  const querySnapshot = await getDocs(personsRef);
-  querySnapshot.forEach((doc) => {
-    console.log(doc.id, ' => ', doc.data().name);
-  });
-};
-
- */
-
-const get3PersonsSorted = async () => {
-  const q = query(personsRef, orderBy('name'), limit(3));
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    console.log(doc.id, ' => ', doc.data().name);
-  });
-};
-
-export { auth, db, addPerson, signInWithGoogle, logout, storage, getPerson, get3PersonsSorted };
+// const get3PersonsSorted = async () => {
+//   const q = query(personsRef, orderBy('name'), limit(3));
+//   const querySnapshot = await getDocs(q);
+//   querySnapshot.forEach((doc) => {
+//     console.log(doc.id, ' => ', doc.data().name);
+//   });
+// };

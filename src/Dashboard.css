@@ -18,15 +18,15 @@
   margin: 2rem 0;
 }
 
-.dashboard__btn {
+ .dashboard__btn {
   padding: 10px;
   font-size: 18px;
   margin-top: 10px;
   border: none;
   color: white;
   background-color: black;
-  cursor: crosshair;
-}
+  cursor:pointer;
+} 
 
 .dashboard div {
   margin-top: 0.5rem;
