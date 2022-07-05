@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
-import { auth, logout } from '../firebase';
+import { auth, logout } from '../firebaseHelper';
 import { Person } from 'types/person';
 import { StyleWidths } from '../theme';
 import PersonResultGrid from '../components/PersonResultGrid';

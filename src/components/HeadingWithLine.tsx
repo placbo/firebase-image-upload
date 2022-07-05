@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import React, { FC } from 'react';
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 import { Colors } from '../theme';
 
 const StyledHeaderWithLine = styled.div`

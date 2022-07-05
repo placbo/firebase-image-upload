@@ -3,13 +3,12 @@ import Login from './pages/Login';
 import { MainPage } from './pages/MainPage';
 import { useEffect, useState } from 'react';
 import { Person } from 'types/person';
-import NewUser from 'pages/NewUser';
+import { NewUser } from 'pages/NewUser';
 import { AddImage } from 'AddImage';
-//import styled from 'styled-components';
 import { Container } from '@mui/material';
 import Header from './components/Header';
 import { getDocs, query } from 'firebase/firestore';
-import { personsRef } from './firebase';
+import { personsRef } from './firebaseHelper';
 import styled from '@emotion/styled';
 
 const StyledApp = styled.div`

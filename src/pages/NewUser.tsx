@@ -1,11 +1,11 @@
-import { personsRef } from 'firebase';
-import { addDoc } from 'firebase/firestore';
+import { personsRef } from '../firebaseHelper';
 import { emptyPerson, Person } from 'types/person';
-import './Dashboard.css';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
+import { FC } from 'react';
+import { addDoc } from 'firebase/firestore';
 
-function NewUser() {
+export const NewUser: FC = () => {
   const navigate = useNavigate();
 
   const addPerson = async (person: Person) => {
@@ -18,8 +18,8 @@ function NewUser() {
   };
 
   return (
-    <div className="dashboard">
-      <div className="dashboard__container">
+    <div>
+      <div>
         <h2>Legg til ny person</h2>
         <Formik
           initialValues={emptyPerson}
@@ -48,15 +48,11 @@ function NewUser() {
             </div>
 
             <div>
-              <button type="submit" className="dashboard__btn">
-                Legg til
-              </button>
+              <button type="submit">Legg til</button>
             </div>
           </Form>
         </Formik>
       </div>
     </div>
   );
-}
-
-export default NewUser;
+};
