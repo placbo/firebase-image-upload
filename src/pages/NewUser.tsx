@@ -1,6 +1,6 @@
 import { personsRef } from 'firebase';
 import { addDoc } from 'firebase/firestore';
-import { emptyPerson, Person } from 'types';
+import { emptyPerson, Person } from 'types/person';
 import './Dashboard.css';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
