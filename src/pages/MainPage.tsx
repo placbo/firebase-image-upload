@@ -1,11 +1,11 @@
 import { FC, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
-import { auth, logout } from '../firebase';
+import { auth, logout } from '../firebaseHelper';
 import { Person } from 'types/person';
 import { StyleWidths } from '../theme';
 import PersonResultGrid from '../components/PersonResultGrid';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import HeadingWithLine from '../components/HeadingWithLine';
 
 const StyledLayout = styled.div`
@@ -23,13 +23,14 @@ interface MainPageProps {
 }
 
 export const MainPage: FC<MainPageProps> = ({ persons }) => {
-  const [user, loading] = useAuthState(auth);
+  const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
 
   useEffect(() => {
+    error && console.log(error);
     if (loading) return;
     if (!user) return navigate('/');
-  }, [user, loading, navigate]);
+  }, [user, loading, error, navigate]);
 
   return (
     <div className="dashboard">

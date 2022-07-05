@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { storage } from './firebase';
+import { storage } from './firebaseHelper';
 import { ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';

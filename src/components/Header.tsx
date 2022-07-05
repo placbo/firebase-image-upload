@@ -1,11 +1,12 @@
-import { AppBar, IconButton, Toolbar } from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
+import { AppBar, IconButton, Toolbar } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import GroupIcon from '@material-ui/icons/Group';
-import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import styled from '@emotion/styled';
+
+import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import GroupIcon from '@mui/icons-material/Group';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { DeviceWidths } from '../theme';
 
 const StyledToolbar = styled(Toolbar)`
@@ -44,20 +45,20 @@ const Header = () => {
     <>
       <AppBar position="static">
         <StyledToolbar>
-          <IconButton href="/" color="inherit">
+          <IconButton href="/" color="inherit" size="large">
             <HomeIcon />
           </IconButton>
-          <IconButton href="/communities" color="inherit">
+          <IconButton href="/communities" color="inherit" size="large">
             <GroupIcon />
           </IconButton>
           <StyledExtraButtons>
-            <IconButton href="/person/1" color="inherit">
+            <IconButton href="/person/1" color="inherit" size="large">
               <AccessibilityNewIcon />
             </IconButton>
-            <IconButton onClick={toggleAddPersonDialog} color="inherit">
+            <IconButton onClick={toggleAddPersonDialog} color="inherit" size="large">
               <PersonAddIcon />
             </IconButton>
-            <IconButton onClick={toggleAddCommunityDialog} color="inherit">
+            <IconButton onClick={toggleAddCommunityDialog} color="inherit" size="large">
               <GroupAddIcon />
             </IconButton>
           </StyledExtraButtons>
