@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import { MainPage } from './pages/MainPage';
 import { useEffect, useState } from 'react';
-import { Person } from 'types/person';
+import { mockPerson, Person } from 'types/person';
 import { NewUser } from 'pages/NewUser';
 import { AddImage } from 'AddImage';
 import { Container } from '@mui/material';
@@ -10,6 +10,7 @@ import Header from './components/Header';
 import { getDocs, query } from 'firebase/firestore';
 import { personsRef } from './firebaseHelper';
 import styled from '@emotion/styled';
+import { USE_MOCK_DATA } from './constants';
 
 const StyledApp = styled.div`
   min-height: 100vh;
@@ -42,7 +43,10 @@ function App() {
       });
       setPersons(tempPersons);
     };
-    getAllPersons();
+    const getMockPersons = () => {
+      setPersons([mockPerson, mockPerson, mockPerson, mockPerson, mockPerson, mockPerson]);
+    };
+    !USE_MOCK_DATA ? getAllPersons() : getMockPersons();
   }, []);
 
   return (

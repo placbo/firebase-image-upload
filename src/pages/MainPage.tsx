@@ -23,13 +23,14 @@ interface MainPageProps {
 }
 
 export const MainPage: FC<MainPageProps> = ({ persons }) => {
-  const [user, loading] = useAuthState(auth);
+  const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
 
   useEffect(() => {
+    error && console.log(error);
     if (loading) return;
     if (!user) return navigate('/');
-  }, [user, loading, navigate]);
+  }, [user, loading, error, navigate]);
 
   return (
     <div className="dashboard">
