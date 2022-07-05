@@ -1,6 +1,6 @@
-import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@material-ui/core';
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
 import React, { FC } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled'
 import { Person } from '../types/person';
 import { Colors, DeviceWidths } from '../theme';
 import placeholder from '../resources/images/person.png';

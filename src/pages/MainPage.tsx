@@ -5,7 +5,7 @@ import { auth, logout } from '../firebase';
 import { Person } from 'types/person';
 import { StyleWidths } from '../theme';
 import PersonResultGrid from '../components/PersonResultGrid';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import HeadingWithLine from '../components/HeadingWithLine';
 
 const StyledLayout = styled.div`

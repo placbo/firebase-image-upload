@@ -5,11 +5,12 @@ import { useEffect, useState } from 'react';
 import { Person } from 'types/person';
 import NewUser from 'pages/NewUser';
 import { AddImage } from 'AddImage';
-import styled from 'styled-components';
-import { Container } from '@material-ui/core';
+//import styled from 'styled-components';
+import { Container } from '@mui/material';
 import Header from './components/Header';
 import { getDocs, query } from 'firebase/firestore';
 import { personsRef } from './firebase';
+import styled from '@emotion/styled';
 
 const StyledApp = styled.div`
   min-height: 100vh;
