@@ -10,6 +10,7 @@ import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { DeviceWidths } from '../theme';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebaseHelper';
+import { Link } from 'react-router-dom';
 
 const StyledToolbar = styled(Toolbar)`
   display: flex;
@@ -48,9 +49,11 @@ export const Header: FC = () => {
     <>
       <AppBar position="static">
         <StyledToolbar>
-          <IconButton href="/" color="inherit" size="large">
-            <HomeIcon />
-          </IconButton>
+          <Link to="/">
+            <IconButton color="inherit" size="large">
+              <HomeIcon />
+            </IconButton>
+          </Link>
           {/*<IconButton href="/communities" color="inherit" size="large">*/}
           {/*  <GroupIcon />*/}
           {/*</IconButton>*/}
@@ -61,9 +64,11 @@ export const Header: FC = () => {
             {/*<IconButton onClick={toggleAddPersonDialog} color="inherit" size="large">*/}
             {/*  <PersonAddIcon />*/}
             {/*</IconButton>*/}
-            <IconButton href="/newperson" color="inherit" size="large">
-              <PersonAddIcon />
-            </IconButton>
+            <Link to="/newperson">
+              <IconButton color="inherit" size="large">
+                <PersonAddIcon />
+              </IconButton>
+            </Link>
             {/*<IconButton onClick={toggleAddCommunityDialog} color="inherit" size="large">*/}
             {/*  <GroupAddIcon />*/}
             {/*</IconButton>*/}

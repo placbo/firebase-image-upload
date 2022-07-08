@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { Person } from '../types/person';
 import { DeviceWidths } from '../theme';
 import placeholder from '../resources/images/person.png';
+import { Link } from 'react-router-dom';
 
 const StyledResultList = styled.div`
   display: flex;
@@ -59,17 +60,19 @@ const PersonResultGrid: FC<{ persons: Person[] }> = ({ persons }) => {
     <StyledResultList>
       {persons.map((person: Person, index) => (
         <StyledCard variant="outlined" key={index}>
-          <StyledCardActionArea href={`/person/${person.id}`}>
-            <StyledCardMedia
-              image={person.profileImageUrl ? person.profileImageUrl : placeholder}
-              title="Profile photo"
-            />
-            <StyledCardContent>
-              <StyledTypography gutterBottom variant={'body2'}>
-                {[person.lastName, person.firstName].filter(Boolean).join(', ')}
-              </StyledTypography>
-            </StyledCardContent>
-          </StyledCardActionArea>
+          <Link to={`/person/${person.id}`}>
+            <StyledCardActionArea>
+              <StyledCardMedia
+                image={person.profileImageUrl ? person.profileImageUrl : placeholder}
+                title="Profile photo"
+              />
+              <StyledCardContent>
+                <StyledTypography gutterBottom variant={'body2'}>
+                  {[person.lastName, person.firstName].filter(Boolean).join(', ')}
+                </StyledTypography>
+              </StyledCardContent>
+            </StyledCardActionArea>
+          </Link>
         </StyledCard>
       ))}
     </StyledResultList>

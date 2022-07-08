@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { emptyPerson, Person } from '../types/person';
 import styled from '@emotion/styled';
 import { useParams } from 'react-router-dom';
@@ -12,6 +12,7 @@ import { FaCross } from 'react-icons/fa';
 
 import personPlaceholderImage from '../resources/images/person.png';
 import { IconButton, Link, Typography } from '@mui/material';
+import { MyPersonsContext } from '../App';
 
 const StyledPersonPresentation = styled.div`
   display: flex;
@@ -81,14 +82,13 @@ const StyledActions = styled.div`
     justify-content: center;
   }
 `;
-interface PersonPageProps {
-  persons: Person[];
-}
 
-export const PersonPage: FC<PersonPageProps> = ({ persons }) => {
+export const PersonPage: FC = () => {
+  const persons: Person[] = useContext(MyPersonsContext) ?? [];
+
   const { identifier } = useParams();
   const person = persons.find((_person) => _person.id === identifier) ?? emptyPerson;
-
+  console.log('Rendrer personPage med id: ', identifier);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   const handleDeleteClick = () => {
