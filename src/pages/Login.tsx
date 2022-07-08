@@ -13,10 +13,10 @@ function Login() {
       // maybe trigger a loading screen
       return;
     }
-    if (user) navigate('/dashboard');
+    if (user) navigate('/');
   }, [user, loading, navigate]);
 
-  return (
+  return !user && !loading ? (
     <div className="login">
       <div className="login__container">
         <button className="login__btn login__google" onClick={signInWithGoogle}>
@@ -24,6 +24,8 @@ function Login() {
         </button>
       </div>
     </div>
+  ) : (
+    <div></div>
   );
 }
 

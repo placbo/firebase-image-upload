@@ -2,7 +2,7 @@ import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/m
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import { Person } from '../types/person';
-import { Colors, DeviceWidths } from '../theme';
+import { DeviceWidths } from '../theme';
 import placeholder from '../resources/images/person.png';
 
 const StyledResultList = styled.div`
@@ -16,10 +16,6 @@ const StyledResultList = styled.div`
 const StyledCard = styled(Card)`
   width: 7rem;
   margin: 0.5rem;
-  background-color: ${Colors.SubtleBackground};
-  && .MuiCardActionArea-root:hover {
-    background-color: ${Colors.SubtleBackgroundHover};
-  }
   @media (max-width: ${DeviceWidths.sm + 'px'}) {
     display: flex;
     width: 100%;
@@ -61,8 +57,8 @@ const StyledTypography = styled(Typography)`
 const PersonResultGrid: FC<{ persons: Person[] }> = ({ persons }) => {
   return (
     <StyledResultList>
-      {persons.map((person: Person) => (
-        <StyledCard key={person.id}>
+      {persons.map((person: Person, index) => (
+        <StyledCard variant="outlined" key={index}>
           <StyledCardActionArea href={`/person/${person.id}`}>
             <StyledCardMedia
               image={person.profileImageUrl ? person.profileImageUrl : placeholder}
