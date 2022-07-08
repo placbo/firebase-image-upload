@@ -8,7 +8,7 @@ import placeholder from '../resources/images/person.png';
 const StyledResultList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  @media (max-width: ${DeviceWidths.sm + 'px'}) {
+  @media (max-width: ${DeviceWidths.sm}) {
     flex-direction: column;
     width: 100%;
   }
@@ -16,7 +16,7 @@ const StyledResultList = styled.div`
 const StyledCard = styled(Card)`
   width: 7rem;
   margin: 0.5rem;
-  @media (max-width: ${DeviceWidths.sm + 'px'}) {
+  @media (max-width: ${DeviceWidths.sm}) {
     display: flex;
     width: 100%;
     margin: 0.5rem 0;
@@ -24,7 +24,7 @@ const StyledCard = styled(Card)`
 `;
 
 const StyledCardActionArea: any = styled(CardActionArea)`
-  @media (max-width: ${DeviceWidths.sm + 'px'}) {
+  @media (max-width: ${DeviceWidths.sm}) {
     display: flex;
     justify-content: flex-start;
   }
@@ -32,7 +32,7 @@ const StyledCardActionArea: any = styled(CardActionArea)`
 
 const StyledCardMedia: any = styled(CardMedia)`
   height: 7rem;
-  @media (max-width: ${DeviceWidths.sm + 'px'}) {
+  @media (max-width: ${DeviceWidths.sm}) {
     min-width: 4rem;
     height: 4rem;
   }
@@ -43,7 +43,7 @@ const StyledCardContent = styled(CardContent)`
   height: 4rem;
   text-align: center;
   font-weight: bold;
-  @media (max-width: ${DeviceWidths.sm + 'px'}) {
+  @media (max-width: ${DeviceWidths.sm}) {
     text-align: left;
   }
 `;

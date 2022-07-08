@@ -14,25 +14,25 @@ import { auth } from '../firebaseHelper';
 const StyledToolbar = styled(Toolbar)`
   display: flex;
   justify-content: space-between;
-  @media (max-width: ${DeviceWidths.sm + 'px'}) {
+  @media (max-width: ${DeviceWidths.sm}) {
     justify-content: flex-start;
   } ;
 `;
 
 const StyledExtraButtons: any = styled.div`
-  @media (max-width: ${DeviceWidths.sm + 'px'}) {
+  @media (max-width: ${DeviceWidths.sm}) {
     display: none;
   } ;
 `;
 
 const StyledSeparator = styled.div`
   flex-grow: 1;
-  @media (max-width: ${DeviceWidths.sm + 'px'}) {
+  @media (max-width: ${DeviceWidths.sm}) {
     margin-left: 1rem;
   } ;
 `;
 
-const Header: FC = () => {
+export const Header: FC = () => {
   const [isAddPersonDialogOpen, setIsAddPersonDialogOpen] = useState(false);
   const [isAddCommunityDialogOpen, setIsAddCommunityDialogOpen] = useState(false);
   const [user, loading] = useAuthState(auth);
@@ -93,5 +93,3 @@ const Header: FC = () => {
     </>
   );
 };
-
-export default Header;

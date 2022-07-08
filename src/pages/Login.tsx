@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, signInWithGoogle } from '../firebaseHelper';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import './Login.css';
 
-function Login() {
+export const Login: FC = () => {
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
 
@@ -27,6 +27,4 @@ function Login() {
   ) : (
     <div></div>
   );
-}
-
-export default Login;
+};

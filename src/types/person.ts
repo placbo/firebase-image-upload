@@ -1,3 +1,5 @@
+import { faker } from '@faker-js/faker';
+
 export interface Person {
   id?: number;
   firstName?: string;
@@ -34,4 +36,18 @@ export const mockPerson: Person = {
   born: 'ja',
   deceased: 'nei',
   profileImageUrl: '',
+  id: 1,
+};
+
+export const generateMockPerson = (): Person => {
+  return {
+    lastName: faker.name.lastName(),
+    firstName: faker.name.firstName(),
+    note: faker.lorem.sentence(),
+    born: '',
+    deceased: '',
+    facebookLink: '' + faker.datatype.number(),
+    id: faker.datatype.number(),
+    profileImageUrl: faker.image.people(100, 100, true),
+  };
 };
