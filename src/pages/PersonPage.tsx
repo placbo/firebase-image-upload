@@ -12,7 +12,7 @@ import { FaCross } from 'react-icons/fa';
 
 import personPlaceholderImage from '../resources/images/person.png';
 import { IconButton, Link, Typography } from '@mui/material';
-import { MyPersonsContext } from '../App';
+import { PersonsContext } from '../App';
 
 const StyledPersonPresentation = styled.div`
   display: flex;
@@ -84,10 +84,10 @@ const StyledActions = styled.div`
 `;
 
 export const PersonPage: FC = () => {
-  const persons: Person[] = useContext(MyPersonsContext) ?? [];
+  const { persons } = useContext(PersonsContext);
 
   const { identifier } = useParams();
-  const person = persons.find((_person) => _person.id === identifier) ?? emptyPerson;
+  const person = persons.find((_person: Person) => _person.id === identifier) ?? emptyPerson;
   console.log('Rendrer personPage med id: ', identifier);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 

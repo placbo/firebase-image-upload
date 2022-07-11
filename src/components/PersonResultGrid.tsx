@@ -2,7 +2,7 @@ import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/m
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import { Person } from '../types/person';
-import { DeviceWidths } from '../theme';
+import { Colors, DeviceWidths } from '../theme';
 import placeholder from '../resources/images/person.png';
 import { Link } from 'react-router-dom';
 
@@ -55,12 +55,17 @@ const StyledTypography = styled(Typography)`
   font-size: small;
 `;
 
+const StyledLink = styled(Link)`
+  color: ${Colors.PrimaryText};
+  text-decoration: none;
+`;
+
 const PersonResultGrid: FC<{ persons: Person[] }> = ({ persons }) => {
   return (
     <StyledResultList>
       {persons.map((person: Person, index) => (
         <StyledCard variant="outlined" key={index}>
-          <Link to={`/person/${person.id}`}>
+          <StyledLink to={`/person/${person.id}`}>
             <StyledCardActionArea>
               <StyledCardMedia
                 image={person.profileImageUrl ? person.profileImageUrl : placeholder}
@@ -70,9 +75,10 @@ const PersonResultGrid: FC<{ persons: Person[] }> = ({ persons }) => {
                 <StyledTypography gutterBottom variant={'body2'}>
                   {[person.lastName, person.firstName].filter(Boolean).join(', ')}
                 </StyledTypography>
+                ID: {person.id}
               </StyledCardContent>
             </StyledCardActionArea>
-          </Link>
+          </StyledLink>
         </StyledCard>
       ))}
     </StyledResultList>

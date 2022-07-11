@@ -1,31 +1,33 @@
-import { personsRef } from '../firebaseHelper';
 import { emptyPerson, Person } from 'types/person';
 import { useNavigate } from 'react-router-dom';
-import { Formik, Form, Field } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import { FC, useContext } from 'react';
-import { addDoc } from 'firebase/firestore';
-import { LanguageContext } from '../App';
+import { PersonsContext } from '../App';
+import { faker } from '@faker-js/faker';
 
 export const NewUser: FC = () => {
+  const { setPersons } = useContext(PersonsContext);
   const navigate = useNavigate();
 
   const addPerson = async (person: Person) => {
-    try {
-      await addDoc(personsRef, person);
-    } catch (error) {
-      return console.error('Failed to save person');
-    }
+    // try {
+    //   await addDoc(personsRef, person);
+    // } catch (error) {
+    //   return console.error('Failed to save person');
+    // }
+
+    //     setPersons((old) => [..old, person
+    // ])
+    //     ;
+    const newId = faker.datatype.uuid();
+    setPersons((currentState: Person[]) => [...currentState, { ...person, id: newId }]);
+
     return navigate('/');
   };
-
-  const { language, setLanguage } = useContext(LanguageContext);
 
   return (
     <div>
       <div>
-        <p>{language}</p>
-        <button onClick={() => setLanguage('jp')}>Switch to JP</button>
-        <button onClick={() => setLanguage('no')}>Switch to NO</button>
         <h2>Legg til ny person</h2>
         <Formik
           initialValues={emptyPerson}

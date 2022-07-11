@@ -3,8 +3,7 @@ import { StyleWidths } from '../theme';
 import PersonResultGrid from '../components/PersonResultGrid';
 import styled from '@emotion/styled';
 import HeadingWithLine from '../components/HeadingWithLine';
-import { Person } from '../types/person';
-import { MyPersonsContext } from '../App';
+import { PersonsContext } from '../App';
 
 const StyledLayout = styled.div`
   display: flex;
@@ -17,9 +16,12 @@ const StyledLayout = styled.div`
 `;
 
 export const MainPage: FC = () => {
-  const persons: Person[] = useContext(MyPersonsContext) ?? [];
+  const { persons } = useContext(PersonsContext);
+
   return (
     <StyledLayout>
+      {/*<pre style={{ maxWidth: '90%' }}>{JSON.stringify(persons, null, 2)}</pre>*/}
+
       <HeadingWithLine text="Sist registrerte"></HeadingWithLine>
       {persons && <PersonResultGrid persons={persons} />}
     </StyledLayout>
