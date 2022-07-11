@@ -1,6 +1,6 @@
-import { useNavigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { MainPage } from './pages/MainPage';
-import React, { createContext, FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import { generateMockPersonArray, Person } from 'types/person';
 import { NewUser } from 'pages/NewUser';
 import { AddImage } from 'AddImage';
@@ -46,7 +46,7 @@ export const Home: FC = () => {
       const querySnapshot = await getDocs(q);
       const tempPersons: Person[] = [];
       querySnapshot.forEach((doc) => {
-        tempPersons.push(doc.data());
+        tempPersons.push({ ...doc.data(), id: doc.id });
         console.log(doc.data());
       });
       setPersons(tempPersons);
