@@ -3,10 +3,10 @@ import HomeIcon from '@mui/icons-material/Home';
 import React, { FC, useState } from 'react';
 import styled from '@emotion/styled';
 
-import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
+// import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import GroupIcon from '@mui/icons-material/Group';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
+// import GroupIcon from '@mui/icons-material/Group';
+// import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { DeviceWidths } from '../theme';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebaseHelper';
@@ -34,16 +34,16 @@ const StyledSeparator = styled.div`
 `;
 
 export const Header: FC = () => {
-  const [isAddPersonDialogOpen, setIsAddPersonDialogOpen] = useState(false);
-  const [isAddCommunityDialogOpen, setIsAddCommunityDialogOpen] = useState(false);
+  // const [isAddPersonDialogOpen, setIsAddPersonDialogOpen] = useState(false);
+  // const [isAddCommunityDialogOpen, setIsAddCommunityDialogOpen] = useState(false);
   const [user, loading] = useAuthState(auth);
 
-  const toggleAddPersonDialog = () => {
-    setIsAddPersonDialogOpen(!isAddPersonDialogOpen);
-  };
-  const toggleAddCommunityDialog = () => {
-    setIsAddCommunityDialogOpen(!isAddCommunityDialogOpen);
-  };
+  // const toggleAddPersonDialog = () => {
+  //   setIsAddPersonDialogOpen(!isAddPersonDialogOpen);
+  // };
+  // const toggleAddCommunityDialog = () => {
+  //   setIsAddCommunityDialogOpen(!isAddCommunityDialogOpen);
+  // };
 
   return (
     <>

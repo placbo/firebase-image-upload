@@ -61,9 +61,19 @@ const StyledLink = styled(Link)`
 `;
 
 const PersonResultGrid: FC<{ persons: Person[] }> = ({ persons }) => {
+  const sortedPersons = persons.sort((a, b) =>
+    (a.lastName?.toUpperCase() ?? '') > (b.lastName?.toUpperCase() ?? '')
+      ? 1
+      : (a.lastName?.toUpperCase() ?? '') === (b.lastName?.toUpperCase() ?? '')
+      ? (a.firstName?.toUpperCase() ?? '') > (b.firstName?.toUpperCase() ?? '')
+        ? 1
+        : -1
+      : -1
+  );
+
   return (
     <StyledResultList>
-      {persons.map((person: Person, index) => (
+      {sortedPersons.map((person: Person, index) => (
         <StyledCard variant="outlined" key={index}>
           <StyledLink to={`/person/${person.id}`}>
             <StyledCardActionArea>
@@ -75,7 +85,6 @@ const PersonResultGrid: FC<{ persons: Person[] }> = ({ persons }) => {
                 <StyledTypography gutterBottom variant={'body2'}>
                   {[person.lastName, person.firstName].filter(Boolean).join(', ')}
                 </StyledTypography>
-                ID: {person.id}
               </StyledCardContent>
             </StyledCardActionArea>
           </StyledLink>
