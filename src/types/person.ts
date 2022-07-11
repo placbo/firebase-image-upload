@@ -9,6 +9,7 @@ export interface Person {
   born?: string;
   deceased?: string;
   facebookLink?: string;
+  //groups
   //parents:  list of ids
   //children: list of ids
   //images: list of urls

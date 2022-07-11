@@ -4,6 +4,8 @@ import { Field, Form, Formik } from 'formik';
 import { FC, useContext } from 'react';
 import { PersonsContext } from '../App';
 import { faker } from '@faker-js/faker';
+// import {addDoc} from "firebase/firestore";
+// import {personsRef} from "../firebaseHelper";
 
 export const NewUser: FC = () => {
   const { setPersons } = useContext(PersonsContext);
@@ -15,10 +17,6 @@ export const NewUser: FC = () => {
     // } catch (error) {
     //   return console.error('Failed to save person');
     // }
-
-    //     setPersons((old) => [..old, person
-    // ])
-    //     ;
     const newId = faker.datatype.uuid();
     setPersons((currentState: Person[]) => [...currentState, { ...person, id: newId }]);
 
