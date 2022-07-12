@@ -5,9 +5,9 @@ import styled from '@emotion/styled';
 
 // import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-// import GroupIcon from '@mui/icons-material/Group';
+import GroupIcon from '@mui/icons-material/Group';
 // import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import { DeviceWidths } from '../theme';
+import { Colors, DeviceWidths } from '../theme';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebaseHelper';
 import { Link } from 'react-router-dom';
@@ -33,6 +33,11 @@ const StyledSeparator = styled.div`
   } ;
 `;
 
+const StyledLink = styled(Link)`
+  color: ${Colors.Background};
+  text-: none;
+`;
+
 export const Header: FC = () => {
   // const [isAddPersonDialogOpen, setIsAddPersonDialogOpen] = useState(false);
   // const [isAddCommunityDialogOpen, setIsAddCommunityDialogOpen] = useState(false);
@@ -49,14 +54,16 @@ export const Header: FC = () => {
     <>
       <AppBar position="static">
         <StyledToolbar>
-          <Link to="/">
+          <StyledLink to="/">
             <IconButton color="inherit" size="large">
               <HomeIcon />
             </IconButton>
-          </Link>
-          {/*<IconButton href="/communities" color="inherit" size="large">*/}
-          {/*  <GroupIcon />*/}
-          {/*</IconButton>*/}
+          </StyledLink>
+          <StyledLink to="/communities">
+            <IconButton color="inherit" size="large">
+              <GroupIcon />
+            </IconButton>
+          </StyledLink>
           <StyledExtraButtons>
             {/*<IconButton href="/person/1" color="inherit" size="large">*/}
             {/*  <AccessibilityNewIcon />*/}
@@ -64,11 +71,11 @@ export const Header: FC = () => {
             {/*<IconButton onClick={toggleAddPersonDialog} color="inherit" size="large">*/}
             {/*  <PersonAddIcon />*/}
             {/*</IconButton>*/}
-            <Link to="/newperson">
+            <StyledLink to="/newperson">
               <IconButton color="inherit" size="large">
                 <PersonAddIcon />
               </IconButton>
-            </Link>
+            </StyledLink>
             {/*<IconButton onClick={toggleAddCommunityDialog} color="inherit" size="large">*/}
             {/*  <GroupAddIcon />*/}
             {/*</IconButton>*/}

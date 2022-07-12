@@ -29,17 +29,6 @@ export const emptyPerson: Person = {
   profileImageUrl: '',
 };
 
-export const mockPerson: Person = {
-  lastName: 'Bjelke',
-  firstName: 'Per Christian',
-  note: 'Kul kar!',
-  facebookLink: '12345678',
-  born: 'ja',
-  deceased: 'nei',
-  profileImageUrl: '',
-  id: '1',
-};
-
 const generateMockPerson = (): Person => {
   return {
     lastName: faker.name.lastName(),
