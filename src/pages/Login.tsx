@@ -1,10 +1,10 @@
-import React, { FC, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, signInWithGoogle } from '../firebaseHelper';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import './Login.css';
 
-export const Login: FC = () => {
+function Login() {
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
 
@@ -13,10 +13,10 @@ export const Login: FC = () => {
       // maybe trigger a loading screen
       return;
     }
-    if (user) navigate('/');
+    if (user) navigate('/dashboard');
   }, [user, loading, navigate]);
 
-  return !user && !loading ? (
+  return (
     <div className="login">
       <div className="login__container">
         <button className="login__btn login__google" onClick={signInWithGoogle}>
@@ -24,7 +24,7 @@ export const Login: FC = () => {
         </button>
       </div>
     </div>
-  ) : (
-    <div></div>
   );
-};
+}
+
+export default Login;

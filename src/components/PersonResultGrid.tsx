@@ -4,12 +4,11 @@ import styled from '@emotion/styled';
 import { Person } from '../types/person';
 import { Colors, DeviceWidths } from '../theme';
 import placeholder from '../resources/images/person.png';
-import { Link } from 'react-router-dom';
 
 const StyledResultList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  @media (max-width: ${DeviceWidths.sm}) {
+  @media (max-width: ${DeviceWidths.sm + 'px'}) {
     flex-direction: column;
     width: 100%;
   }
@@ -17,7 +16,11 @@ const StyledResultList = styled.div`
 const StyledCard = styled(Card)`
   width: 7rem;
   margin: 0.5rem;
-  @media (max-width: ${DeviceWidths.sm}) {
+  background-color: ${Colors.SubtleBackground};
+  && .MuiCardActionArea-root:hover {
+    background-color: ${Colors.SubtleBackgroundHover};
+  }
+  @media (max-width: ${DeviceWidths.sm + 'px'}) {
     display: flex;
     width: 100%;
     margin: 0.5rem 0;
@@ -25,7 +28,7 @@ const StyledCard = styled(Card)`
 `;
 
 const StyledCardActionArea: any = styled(CardActionArea)`
-  @media (max-width: ${DeviceWidths.sm}) {
+  @media (max-width: ${DeviceWidths.sm + 'px'}) {
     display: flex;
     justify-content: flex-start;
   }
@@ -33,7 +36,7 @@ const StyledCardActionArea: any = styled(CardActionArea)`
 
 const StyledCardMedia: any = styled(CardMedia)`
   height: 7rem;
-  @media (max-width: ${DeviceWidths.sm}) {
+  @media (max-width: ${DeviceWidths.sm + 'px'}) {
     min-width: 4rem;
     height: 4rem;
   }
@@ -44,7 +47,7 @@ const StyledCardContent = styled(CardContent)`
   height: 4rem;
   text-align: center;
   font-weight: bold;
-  @media (max-width: ${DeviceWidths.sm}) {
+  @media (max-width: ${DeviceWidths.sm + 'px'}) {
     text-align: left;
   }
 `;
@@ -55,39 +58,22 @@ const StyledTypography = styled(Typography)`
   font-size: small;
 `;
 
-const StyledLink = styled(Link)`
-  color: ${Colors.PrimaryText};
-  text-decoration: none;
-`;
-
 const PersonResultGrid: FC<{ persons: Person[] }> = ({ persons }) => {
-  const sortedPersons = persons.sort((a, b) =>
-    (a.lastName?.toUpperCase() ?? '') > (b.lastName?.toUpperCase() ?? '')
-      ? 1
-      : (a.lastName?.toUpperCase() ?? '') === (b.lastName?.toUpperCase() ?? '')
-      ? (a.firstName?.toUpperCase() ?? '') > (b.firstName?.toUpperCase() ?? '')
-        ? 1
-        : -1
-      : -1
-  );
-
   return (
     <StyledResultList>
-      {sortedPersons.map((person: Person, index) => (
-        <StyledCard variant="outlined" key={index}>
-          <StyledLink to={`/person/${person.id}`}>
-            <StyledCardActionArea>
-              <StyledCardMedia
-                image={person.profileImageUrl ? person.profileImageUrl : placeholder}
-                title="Profile photo"
-              />
-              <StyledCardContent>
-                <StyledTypography gutterBottom variant={'body2'}>
-                  {[person.lastName, person.firstName].filter(Boolean).join(', ')}
-                </StyledTypography>
-              </StyledCardContent>
-            </StyledCardActionArea>
-          </StyledLink>
+      {persons.map((person: Person) => (
+        <StyledCard key={person.id}>
+          <StyledCardActionArea href={`/person/${person.id}`}>
+            <StyledCardMedia
+              image={person.profileImageUrl ? person.profileImageUrl : placeholder}
+              title="Profile photo"
+            />
+            <StyledCardContent>
+              <StyledTypography gutterBottom variant={'body2'}>
+                {[person.lastName, person.firstName].filter(Boolean).join(', ')}
+              </StyledTypography>
+            </StyledCardContent>
+          </StyledCardActionArea>
         </StyledCard>
       ))}
     </StyledResultList>

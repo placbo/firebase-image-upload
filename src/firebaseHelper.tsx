@@ -1,10 +1,9 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { addDoc, collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
+import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from 'firebase/auth';
+import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 export const PERSONS_COLLECTION_NAME = 'persons';
-export const COMMUNITY_COLLECTION_NAME = 'communities';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBlc-9cBQVLLXdLxYfVpgh8I3iFALoQ7E0',
@@ -42,8 +41,11 @@ export const signInWithGoogle = async () => {
   }
 };
 
+export const logout = () => {
+  signOut(auth);
+};
+
 export const personsRef = collection(db, PERSONS_COLLECTION_NAME);
-export const communityRef = collection(db, COMMUNITY_COLLECTION_NAME);
 
 // const getPerson = async (id: string = '0ttbjQBY2GOnc4QFg4ey') => {
 //   const personRef = doc(db, PERSONS_COLLECTION_NAME, id);
