@@ -1,10 +1,10 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { emptyPerson, Person } from '../types/person';
 import styled from '@emotion/styled';
 import { useParams } from 'react-router-dom';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import DeleteIcon from '@mui/icons-material/Delete';
+// import 0EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+// import DeleteIcon from '@mui/icons-material/Delete';
 
 import { IMAGE_BASE_URL } from '../resources/constants';
 import { Colors, DeviceWidths } from '../theme';
@@ -13,6 +13,9 @@ import { FaCross } from 'react-icons/fa';
 import personPlaceholderImage from '../resources/images/person.png';
 import { IconButton, Link, Typography } from '@mui/material';
 import { PersonsContext } from '../App';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { storage, updatePerson } from '../firebaseHelper';
+import { v4 } from 'uuid';
 
 const StyledPersonPresentation = styled.div`
   display: flex;
@@ -73,6 +76,12 @@ const StyledNoteTypography = styled(Typography)`
   margin-top: 2rem;
   font-family: inherit;
 `;
+const StyledLabelButtonFileUpload = styled.label`
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+`;
 
 const StyledActions = styled.div`
   display: flex;
@@ -84,25 +93,51 @@ const StyledActions = styled.div`
 `;
 
 export const PersonPage: FC = () => {
-  const { persons } = useContext(PersonsContext);
-
   const { identifier } = useParams();
-  const person = persons.find((_person: Person) => _person.id === identifier) ?? emptyPerson;
-  console.log('Rendrer personPage med id: ', identifier);
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const { persons, setPersons } = useContext(PersonsContext);
 
-  const handleDeleteClick = () => {
-    // if (window.confirm(`Really delete ${person?.firstName} ${person?.lastName} ?`)) {
-    //   deletePerson(identifier)
-    //     .then(() => {
-    //       history.push('/');
-    //     })
-    //     .catch((error: any) => console.error(error.message));
-    // }
-  };
+  const [person, setPerson] = useState(persons.find((_person: Person) => _person.id === identifier) ?? emptyPerson);
 
-  const handleToggleEditDialog = () => {
-    setIsEditDialogOpen(!isEditDialogOpen);
+  // useEffect(() => {
+  //   console.log('HEPP!', persons);
+  //   if (persons && persons.length > 0)
+  //     setPerson(persons.find((_person: Person) => _person.id === identifier) ?? emptyPerson);
+  // }, [persons]);
+
+  // const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+
+  // const handleDeleteClick = () => {
+  //   // if (window.confirm(`Really delete ${person?.firstName} ${person?.lastName} ?`)) {
+  //   //   deletePerson(identifier)
+  //   //     .then(() => {
+  //   //       history.push('/');
+  //   //     })
+  //   //     .catch((error: any) => console.error(error.message));
+  //   // }
+  // };
+
+  // const handleToggleEditDialog = () => {
+  //   setIsEditDialogOpen(!isEditDialogOpen);
+  // };
+
+  const handleFileUpload = async (file: File | null) => {
+    if (!file) return;
+    console.log('Laster opp bilde: ', file.name);
+    //todo: Scale image
+    //todo: Save thumbs as well
+    const storageRef = ref(storage, `images/${v4()}`);
+    await uploadBytes(storageRef, file);
+    const imageUrl = await getDownloadURL(storageRef);
+
+    //TODO. legger til en person, ikke endrer.
+
+    const newPersonsArray = persons.map((_person: Person) =>
+      _person.id === person.id ? { ..._person, profileImageUrl: imageUrl } : _person
+    );
+    setPersons(newPersonsArray); //oppdaterer context)
+    setPerson(newPersonsArray.find((_person: Person) => _person.id === person.id)); //opppdaterer lokal view uten å være avhengig av context
+
+    await updatePerson({ ...person, profileImageUrl: imageUrl });
   };
 
   return (
@@ -111,19 +146,23 @@ export const PersonPage: FC = () => {
         <>
           <StyledHeader>
             <StyledImageWrapper>
-              <Link
-                href={`${IMAGE_BASE_URL}/persons/${person.profileImageUrl}`}
-                target="_blank"
-                rel="noopener noreferrer">
+              <Link href={person.profileImageUrl} target="_blank" rel="noopener noreferrer">
                 <StyledImage
                   alt="Person"
-                  src={
-                    person.profileImageUrl
-                      ? `${IMAGE_BASE_URL}/persons/medium/${person.profileImageUrl}`
-                      : personPlaceholderImage
-                  }
+                  src={person.profileImageUrl ? person.profileImageUrl : personPlaceholderImage}
                 />
               </Link>
+              <div>
+                <StyledLabelButtonFileUpload htmlFor="file-upload">Velg nytt profilbilde</StyledLabelButtonFileUpload>
+                <input
+                  id="file-upload"
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    handleFileUpload(event.target.files && event.target.files[0]);
+                  }}
+                  type="file"
+                  style={{ display: 'none' }}
+                />
+              </div>
             </StyledImageWrapper>
             <StyledDetailsWrapper>
               <StyledNameTypography variant="h3">{`${person.firstName} ${person.lastName}`}</StyledNameTypography>

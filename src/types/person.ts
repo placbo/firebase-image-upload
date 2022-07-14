@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker';
 
 export interface Person {
   id?: string;
+  old_id?: string;
   firstName?: string;
   lastName?: string;
   note?: string;
