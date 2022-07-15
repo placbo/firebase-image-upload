@@ -1,13 +1,11 @@
-import { samplePersonData } from './samplePersonData';
-import { communityData } from './communityData';
+import { sampleData } from './sampleData';
 import { Person } from '../types/person';
 import { addDoc } from 'firebase/firestore';
-import { communityRef, personsRef } from '../firebaseHelper';
-import { Community } from '../types/community';
+import { personsRef } from '../firebaseHelper';
 
-export const importPersonData = () => {
+export const importSampleData = () => {
   try {
-    const dataToImport = samplePersonData;
+    const dataToImport = sampleData;
     dataToImport.forEach((personData: any) => {
       const person: Person = {
         id: personData[0],
@@ -18,23 +16,6 @@ export const importPersonData = () => {
         born: personData[5],
       };
       addDoc(personsRef, person).then();
-    });
-  } catch (error) {
-    return console.error('Failed to save person');
-  }
-};
-
-export const importCommunityData = () => {
-  try {
-    const dataToImport = communityData;
-    dataToImport.forEach((communityData: any) => {
-      const community: Community = {
-        id: communityData[0],
-        name: communityData[1],
-        note: '',
-        imageUrl: '',
-      };
-      addDoc(communityRef, community).then();
     });
   } catch (error) {
     return console.error('Failed to save person');

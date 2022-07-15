@@ -14,7 +14,6 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { Header } from './components/Header';
 import { PersonPage } from './pages/PersonPage';
 import { PersonsContext } from './App';
-import { CommunitiesPage } from './pages/Communities';
 
 const StyledApp = styled.div`
   min-height: 100vh;
@@ -74,7 +73,6 @@ export const Home: FC = () => {
           <Route path="/" element={<MainPage />} />
           <Route path="/person/:identifier" element={<PersonPage />} />
           <Route path="/newperson" element={<NewUser />} />
-          <Route path="/communities" element={<CommunitiesPage />} />
           <Route path="/addimage" element={<AddImage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
