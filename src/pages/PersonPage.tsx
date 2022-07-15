@@ -137,18 +137,19 @@ export const PersonPage: FC = () => {
               <StyledActions>
                 {person.facebookLink && (
                   <IconButton
+                    style={{ color: 'blue' }}
                     href={`https://www.facebook.com/${person.facebookLink}`}
                     target="_blank"
                     aria-label="facebook link">
                     <FacebookIcon />
                   </IconButton>
                 )}
-                <IconButton aria-label="" onClick={handleDeleteClick}>
-                  <DeleteIcon />
-                </IconButton>
-                <IconButton aria-label="" onClick={handleToggleEditDialog}>
-                  <EditOutlinedIcon />
-                </IconButton>
+                {/*<IconButton aria-label="" onClick={handleDeleteClick}>*/}
+                {/*  <DeleteIcon />*/}
+                {/*</IconButton>*/}
+                {/*<IconButton aria-label="" onClick={handleToggleEditDialog}>*/}
+                {/*  <EditOutlinedIcon />*/}
+                {/*</IconButton>*/}
               </StyledActions>
             </StyledDetailsWrapper>
           </StyledHeader>
