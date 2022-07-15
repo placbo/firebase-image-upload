@@ -15,13 +15,11 @@ const StyledLayout = styled.div`
   margin-top: 1rem;
 `;
 
-export const MainPage: FC = () => {
+export const LastRegisteredPersonsPage: FC = () => {
   const { persons } = useContext(PersonsContext);
 
   return (
     <StyledLayout>
-      {/*<pre style={{ maxWidth: '90%' }}>{JSON.stringify(persons, null, 2)}</pre>*/}
-
       <HeadingWithLine text="Sist registrerte"></HeadingWithLine>
       {persons && <PersonResultGrid persons={persons} />}
     </StyledLayout>

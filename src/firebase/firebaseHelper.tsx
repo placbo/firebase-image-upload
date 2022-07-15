@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { addDoc, collection, getDocs, getFirestore, query, where, doc, setDoc } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
-import { Person } from './types/person';
+import { Person } from '../types/person';
 
 export const PERSONS_COLLECTION_NAME = 'persons';
 export const COMMUNITY_COLLECTION_NAME = 'communities';

@@ -2,7 +2,7 @@ import { samplePersonData } from './samplePersonData';
 import { communityData } from './communityData';
 import { Person } from '../types/person';
 import { addDoc } from 'firebase/firestore';
-import { communityRef, personsRef } from '../firebaseHelper';
+import { communityRef, personsRef } from '../firebase/firebaseHelper';
 import { Community } from '../types/community';
 
 export const importPersonData = () => {

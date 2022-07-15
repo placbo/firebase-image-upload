@@ -1,6 +1,6 @@
 import { AppBar, Button, IconButton, Toolbar } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import styled from '@emotion/styled';
 
 // import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
@@ -9,7 +9,7 @@ import GroupIcon from '@mui/icons-material/Group';
 // import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { Colors, DeviceWidths } from '../theme';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../firebaseHelper';
+import { auth } from '../firebase/firebaseHelper';
 import { Link } from 'react-router-dom';
 
 const StyledToolbar = styled(Toolbar)`

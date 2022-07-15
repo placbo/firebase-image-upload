@@ -1,20 +1,19 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { emptyPerson, Person } from '../types/person';
 import styled from '@emotion/styled';
 import { useParams } from 'react-router-dom';
 import FacebookIcon from '@mui/icons-material/Facebook';
-// import 0EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+// import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 // import DeleteIcon from '@mui/icons-material/Delete';
 
-import { IMAGE_BASE_URL } from '../resources/constants';
 import { Colors, DeviceWidths } from '../theme';
 import { FaCross } from 'react-icons/fa';
 
 import personPlaceholderImage from '../resources/images/person.png';
-import { IconButton, Link, Typography } from '@mui/material';
+import { CircularProgress, IconButton, Link, Typography } from '@mui/material';
 import { PersonsContext } from '../App';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { storage, updatePerson } from '../firebaseHelper';
+import { storage, updatePerson } from '../firebase/firebaseHelper';
 import { v4 } from 'uuid';
 
 const StyledPersonPresentation = styled.div`
@@ -119,24 +118,23 @@ export const PersonPage: FC = () => {
   // const handleToggleEditDialog = () => {
   //   setIsEditDialogOpen(!isEditDialogOpen);
   // };
-
+  const [isUploading, setIsUploading] = useState(false);
   const handleFileUpload = async (file: File | null) => {
     if (!file) return;
+    setIsUploading(true);
     console.log('Laster opp bilde: ', file.name);
     //todo: Scale image
     //todo: Save thumbs as well
     const storageRef = ref(storage, `images/${v4()}`);
     await uploadBytes(storageRef, file);
     const imageUrl = await getDownloadURL(storageRef);
-
-    //TODO. legger til en person, ikke endrer.
-
     const newPersonsArray = persons.map((_person: Person) =>
       _person.id === person.id ? { ..._person, profileImageUrl: imageUrl } : _person
     );
     setPersons(newPersonsArray); //oppdaterer context)
     setPerson(newPersonsArray.find((_person: Person) => _person.id === person.id)); //opppdaterer lokal view uten å være avhengig av context
     await updatePerson({ ...person, profileImageUrl: imageUrl });
+    setIsUploading(false);
   };
 
   return (
@@ -161,6 +159,7 @@ export const PersonPage: FC = () => {
                   type="file"
                   style={{ display: 'none' }}
                 />
+                {isUploading && <CircularProgress size={'1rem'} style={{ marginLeft: '1rem' }} />}
               </div>
             </StyledImageWrapper>
             <StyledDetailsWrapper>

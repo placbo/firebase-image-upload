@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Button } from '@mui/material';
-import { auth } from '../firebaseHelper';
+import { auth } from '../firebase/firebaseHelper';
 import { useNavigate } from 'react-router-dom';
 
 export const NotPerPage: FC = () => {

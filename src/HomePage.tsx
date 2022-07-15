@@ -1,20 +1,21 @@
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { MainPage } from './pages/MainPage';
+import { LastRegisteredPersonsPage } from './pages/LastRegisteredPersonsPage';
 import React, { FC, useContext, useEffect } from 'react';
 import { generateMockPersonArray, Person } from 'types/person';
 import { NewUser } from 'pages/NewUser';
 import { AddImage } from 'AddImage';
 import { Container } from '@mui/material';
 import { getDocs, query } from 'firebase/firestore';
-import { auth, personsRef } from './firebaseHelper';
+import { auth, communityRef, personsRef } from './firebase/firebaseHelper';
 import styled from '@emotion/styled';
 import { USE_MOCK_DATA } from './constants';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { Header } from './components/Header';
 import { PersonPage } from './pages/PersonPage';
-import { PersonsContext } from './App';
+import { CommunitiesContext, PersonsContext } from './App';
 import { CommunitiesPage } from './pages/Communities';
+import { Community, generateMockCommunityArray } from './types/community';
 
 const StyledApp = styled.div`
   min-height: 100vh;
@@ -32,9 +33,10 @@ const StyledContent = styled(Container)`
   align-items: center;
 `;
 
-export const Home: FC = () => {
+export const HomePage: FC = () => {
   const [user, loading, error] = useAuthState(auth);
   const { persons, setPersons } = useContext(PersonsContext);
+  const { communities, setCommunities } = useContext(CommunitiesContext);
 
   const navigate = useNavigate();
 
@@ -62,6 +64,27 @@ export const Home: FC = () => {
   }, [persons.length, setPersons]);
 
   useEffect(() => {
+    const getAllCommunities = async () => {
+      console.log('Fetching all communities from firebase');
+      const q = query(communityRef);
+      const querySnapshot = await getDocs(q);
+      const tempCommunities: Community[] = [];
+      querySnapshot.forEach((doc) => {
+        tempCommunities.push({ ...doc.data(), id: doc.id });
+      });
+      setCommunities(tempCommunities);
+    };
+    const getMockCommunities = () => {
+      console.log('generating mock communities');
+      setCommunities(generateMockCommunityArray());
+    };
+    if (communities.length === 0) {
+      !USE_MOCK_DATA ? getAllCommunities() : getMockCommunities();
+    }
+    //test
+  }, [communities.length, setCommunities]);
+
+  useEffect(() => {
     if (!USE_MOCK_DATA) {
       error && console.log(error);
       if (loading) return;
@@ -75,7 +98,7 @@ export const Home: FC = () => {
       <Header />
       <StyledContent>
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/" element={<LastRegisteredPersonsPage />} />
           <Route path="/person/:identifier" element={<PersonPage />} />
           <Route path="/newperson" element={<NewUser />} />
           <Route path="/communities" element={<CommunitiesPage />} />

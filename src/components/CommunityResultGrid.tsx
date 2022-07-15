@@ -1,25 +1,12 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useContext } from 'react';
 import { Community } from '../types/community';
 import { IMAGE_BASE_URL } from '../resources/constants';
 import { Colors, DeviceWidths } from '../theme';
 import communityPlaceholderImage from '../resources/images/group.webp';
 import styled from '@emotion/styled';
-import {
-  Autocomplete,
-  Button,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  TextField,
-  Typography,
-} from '@mui/material';
-import { Add } from '@mui/icons-material';
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
+// import { Add } from '@mui/icons-material';
+import { CommunitiesContext } from '../App';
 
 const StyledResultList = styled.div`
   display: flex;
@@ -72,46 +59,46 @@ const StyledTypography = styled(Typography)`
   font-size: small;
 `;
 
-const StyledAdd = styled(Add)`
-  font-size: 3rem;
-`;
+// const StyledAdd = styled(Add)`
+//   font-size: 3rem;
+// `;
+//
+// const StyledAddButton = styled(Button)`
+//   margin-left: 1rem;
+// `;
+//
+// const StyledAddButtonWrapper = styled.div`
+//   width: 7rem;
+//   height: 11rem;
+//   margin: 0.5rem;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   @media (max-width: ${DeviceWidths.sm}) {
+//     width: 100%;
+//     height: 4rem;
+//     margin: 0.5rem 0;
+//   }
+// `;
 
-const StyledAddButton = styled(Button)`
-  margin-left: 1rem;
-`;
-
-const StyledAddButtonWrapper = styled.div`
-  width: 7rem;
-  height: 11rem;
-  margin: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  @media (max-width: ${DeviceWidths.sm}) {
-    width: 100%;
-    height: 4rem;
-    margin: 0.5rem 0;
-  }
-`;
-
-const StyledContentWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30rem;
-  margin: 0.5rem;
-`;
+// const StyledContentWrapper = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   width: 30rem;
+//   margin: 0.5rem;
+// `;
 
 interface CommunityResultGridProps {
   personId?: string;
 }
 
 const CommunityResultGrid: FC<CommunityResultGridProps> = ({ personId }) => {
-  const [isAddCommunityDialogOpen, setIsAddCommunityDialogOpen] = useState(false);
-  const [isAddCommunityToPersonDialogOpen, setIsAddCommunityToPersonDialogOpen] = useState(false);
-  const [allCommunities, setAllCommunities] = useState<Community[]>([]);
-  const [selectedCommunityToAdd, setSelectedCommunityToAdd] = useState<Community | null>(null);
-  const [communities, setCommunities] = useState<Community[]>();
+  // const [isAddCommunityDialogOpen, setIsAddCommunityDialogOpen] = useState(false);
+  // const [isAddCommunityToPersonDialogOpen, setIsAddCommunityToPersonDialogOpen] = useState(false);
+  // const [allCommunities, setAllCommunities] = useState<Community[]>([]);
+  // const [selectedCommunityToAdd, setSelectedCommunityToAdd] = useState<Community | null>(null);
+  const { communities } = useContext(CommunitiesContext);
 
   // const loadCommunities = (personId: string | undefined) => {
   //   if (personId) {
