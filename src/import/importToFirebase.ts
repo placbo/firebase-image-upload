@@ -10,7 +10,7 @@ export const importPersonData = () => {
     const dataToImport = samplePersonData;
     dataToImport.forEach((personData: any) => {
       const person: Person = {
-        id: personData[0],
+        old_id: personData[0],
         firstName: personData[1],
         lastName: personData[2],
         note: personData[3],
@@ -29,7 +29,7 @@ export const importCommunityData = () => {
     const dataToImport = communityData;
     dataToImport.forEach((communityData: any) => {
       const community: Community = {
-        id: communityData[0],
+        old_id: communityData[0],
         name: communityData[1],
         note: '',
         imageUrl: '',

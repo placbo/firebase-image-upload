@@ -48,7 +48,6 @@ export const Home: FC = () => {
       const tempPersons: Person[] = [];
       querySnapshot.forEach((doc) => {
         tempPersons.push({ ...doc.data(), id: doc.id });
-        console.log(doc.data());
       });
       setPersons(tempPersons);
     };
@@ -56,14 +55,18 @@ export const Home: FC = () => {
       console.log('generating mock users');
       setPersons(generateMockPersonArray());
     };
-    !USE_MOCK_DATA && persons.length === 0 ? getAllPersons() : getMockPersons();
+    if (persons.length === 0) {
+      !USE_MOCK_DATA ? getAllPersons() : getMockPersons();
+    }
   }, []);
 
   useEffect(() => {
-    error && console.log(error);
-    if (loading) return;
-    if (!user) return navigate('/login');
-    if (user.email !== 'perbjester@gmail.com') return navigate('/notper');
+    if (!USE_MOCK_DATA) {
+      error && console.log(error);
+      if (loading) return;
+      if (!user) return navigate('/login');
+      if (user.email !== 'perbjester@gmail.com') return navigate('/notper');
+    }
   }, [user, loading, error, navigate]);
 
   return (

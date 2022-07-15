@@ -1,7 +1,8 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { addDoc, collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
+import { addDoc, collection, getDocs, getFirestore, query, where, doc, setDoc } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
+import { Person } from './types/person';
 
 export const PERSONS_COLLECTION_NAME = 'persons';
 export const COMMUNITY_COLLECTION_NAME = 'communities';
@@ -44,6 +45,10 @@ export const signInWithGoogle = async () => {
 
 export const personsRef = collection(db, PERSONS_COLLECTION_NAME);
 export const communityRef = collection(db, COMMUNITY_COLLECTION_NAME);
+
+export const updatePerson = async (person: Person) => {
+  if (person.id) await setDoc(doc(db, PERSONS_COLLECTION_NAME, person.id), person);
+};
 
 // const getPerson = async (id: string = '0ttbjQBY2GOnc4QFg4ey') => {
 //   const personRef = doc(db, PERSONS_COLLECTION_NAME, id);
