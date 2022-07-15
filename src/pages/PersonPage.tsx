@@ -135,8 +135,7 @@ export const PersonPage: FC = () => {
       _person.id === person.id ? { ..._person, profileImageUrl: imageUrl } : _person
     );
     setPersons(newPersonsArray); //oppdaterer context)
-    setPerson(persons.find((_person: Person) => _person.id === person.id)); //opppdaterer lokal view uten å være avhengig av context
-
+    setPerson(newPersonsArray.find((_person: Person) => _person.id === person.id)); //opppdaterer lokal view uten å være avhengig av context
     await updatePerson({ ...person, profileImageUrl: imageUrl });
   // const handleToggleEditDialog = () => {
   //   setIsEditDialogOpen(!isEditDialogOpen);
