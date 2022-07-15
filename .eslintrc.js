@@ -11,5 +11,6 @@ module.exports = {
     'no-unused-vars': 0,
     '@typescript-eslint/no-unused-vars': 1,
     'prettier/prettier': 2,
+    'no-undef': 0,
   },
 };

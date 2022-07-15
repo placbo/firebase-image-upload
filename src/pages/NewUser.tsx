@@ -1,19 +1,25 @@
-import { personsRef } from '../firebaseHelper';
 import { emptyPerson, Person } from 'types/person';
 import { useNavigate } from 'react-router-dom';
-import { Formik, Form, Field } from 'formik';
-import { FC } from 'react';
-import { addDoc } from 'firebase/firestore';
+import { Field, Form, Formik } from 'formik';
+import { FC, useContext } from 'react';
+import { PersonsContext } from '../App';
+import { faker } from '@faker-js/faker';
+// import {addDoc} from "firebase/firestore";
+// import {personsRef} from "../firebaseHelper";
 
 export const NewUser: FC = () => {
+  const { setPersons } = useContext(PersonsContext);
   const navigate = useNavigate();
 
   const addPerson = async (person: Person) => {
-    try {
-      await addDoc(personsRef, person);
-    } catch (error) {
-      return console.error('Failed to save person');
-    }
+    // try {
+    //   await addDoc(personsRef, person);
+    // } catch (error) {
+    //   return console.error('Failed to save person');
+    // }
+    const newId = faker.datatype.uuid();
+    setPersons((currentState: Person[]) => [...currentState, { ...person, id: newId }]);
+
     return navigate('/');
   };
 
