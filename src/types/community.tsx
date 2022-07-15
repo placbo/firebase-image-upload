@@ -1,12 +1,14 @@
 export interface Community {
-  id: string;
-  name: string;
-  note: string;
-  imageUrl: string;
+  id?: string;
+  old_id?: string;
+  name?: string;
+  note?: string;
+  imageUrl?: string;
 }
 
 export const emptyCommunity: Community = {
   id: '',
+  old_id: '',
   name: '',
   note: '',
   imageUrl: '',

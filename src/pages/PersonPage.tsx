@@ -135,6 +135,28 @@ export const PersonPage: FC = () => {
       _person.id === person.id ? { ..._person, profileImageUrl: imageUrl } : _person
     );
     setPersons(newPersonsArray); //oppdaterer context)
+    setPerson(persons.find((_person: Person) => _person.id === person.id)); //opppdaterer lokal view uten å være avhengig av context
+
+    await updatePerson({ ...person, profileImageUrl: imageUrl });
+  // const handleToggleEditDialog = () => {
+  //   setIsEditDialogOpen(!isEditDialogOpen);
+  // };
+
+  const handleFileUpload = async (file: File | null) => {
+    if (!file) return;
+    console.log('Laster opp bilde: ', file.name);
+    //todo: Scale image
+    //todo: Save thumbs as well
+    const storageRef = ref(storage, `images/${v4()}`);
+    await uploadBytes(storageRef, file);
+    const imageUrl = await getDownloadURL(storageRef);
+
+    //TODO. legger til en person, ikke endrer.
+
+    const newPersonsArray = persons.map((_person: Person) =>
+      _person.id === person.id ? { ..._person, profileImageUrl: imageUrl } : _person
+    );
+    setPersons(newPersonsArray); //oppdaterer context)
     setPerson(newPersonsArray.find((_person: Person) => _person.id === person.id)); //opppdaterer lokal view uten å være avhengig av context
 
     await updatePerson({ ...person, profileImageUrl: imageUrl });

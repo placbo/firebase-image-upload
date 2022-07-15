@@ -48,6 +48,7 @@ export const Home: FC = () => {
       const tempPersons: Person[] = [];
       querySnapshot.forEach((doc) => {
         tempPersons.push({ ...doc.data(), id: doc.id });
+        console.log(doc.data());
       });
       setPersons(tempPersons);
     };
