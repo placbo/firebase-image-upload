@@ -58,7 +58,7 @@ export const Home: FC = () => {
     if (persons.length === 0) {
       !USE_MOCK_DATA ? getAllPersons() : getMockPersons();
     }
-  }, []);
+  }, [persons.length, setPersons]);
 
   useEffect(() => {
     if (!USE_MOCK_DATA) {
